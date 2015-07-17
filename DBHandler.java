@@ -9,6 +9,8 @@ public class DBHandler {
     private List<String> questions = new ArrayList<> ();
     private List<List<String>> answers = new ArrayList<> ();
     private List<List <Boolean>> correct = new ArrayList<> ();
+    //array for storing user answers
+    private Boolean[][] userAnswers = new Boolean[30][];
     //question index for returning questions for GUI
     private int qIndex = 0;
     
@@ -63,10 +65,52 @@ public class DBHandler {
     }
     
     /*
+     * increase qIndex
+     */
+    public void increaseIndex() {
+        qIndex++;
+    }
+    
+    /*
+     * return qIndex
+     */
+    public int getQIndex() {
+        return qIndex;
+    }
+    
+    /*
      * return answers
      */
     public List<String> getAnswers() {
         return answers.get(qIndex);
+    }
+    
+    /*
+     * return correct/not correct answers
+     */
+    public List<Boolean> getCorrect() {
+        return correct.get(qIndex);
+    }
+    
+    /*
+     * set current question array for user answers
+     */
+    public void setUserAnswers(Boolean[] userAns) {
+        userAnswers[qIndex] = userAns;
+    }
+    
+    /*
+     * set concrete value of user answer array to user choice
+     */
+    public void setAnswer(Boolean input, int index) {
+        userAnswers[qIndex][index] = input;
+    }
+    
+    /*
+     * return user answer array for current question
+     */
+    public Boolean[] getUserAnswers() {
+        return userAnswers[qIndex];
     }
     
     private void printQuestions() {

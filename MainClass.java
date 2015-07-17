@@ -1,23 +1,20 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
-
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Color;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.JLabel;
 
 public class MainClass {
 
-    private JFrame frmRoadRulesTest;
+    private JFrame win;
 
     /**
      * Launch the application.
@@ -27,7 +24,7 @@ public class MainClass {
             public void run() {
                 try {
                     MainClass window = new MainClass();
-                    window.frmRoadRulesTest.setVisible(true);
+                    window.win.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -48,7 +45,7 @@ public class MainClass {
     /**
      * Initialize the contents of the frame.
      */
-    
+    JTextArea question = new JTextArea();
     JTextArea txtAns1 = new JTextArea();
     JTextArea txtAns2 = new JTextArea();
     JTextArea txtAns3 = new JTextArea();
@@ -61,43 +58,47 @@ public class MainClass {
     JButton ans4Btn = new JButton("4");
     JButton ans5Btn = new JButton("5");
     
+    Color backgroundColor = new Color(102, 153, 204);
+    Color btnColor = new Color(238, 238, 238);
+    private JLabel verdict = new JLabel("-");
+    
     private void initialize() {
-        frmRoadRulesTest = new JFrame();
-        frmRoadRulesTest.setTitle("Road Rules test BETA v1.0");
-        frmRoadRulesTest.getContentPane().setBackground(new Color(102, 153, 204));
-        frmRoadRulesTest.setBackground(SystemColor.windowBorder);
-        frmRoadRulesTest.setBounds(100, 100, 1100, 670);
-        frmRoadRulesTest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frmRoadRulesTest.getContentPane().setLayout(null);
+        win = new JFrame();
+        win.setTitle("Road Rules test BETA v1.0");
+        win.getContentPane().setBackground(new Color(102, 153, 204));
+        win.setBackground(SystemColor.windowBorder);
+        win.setBounds(100, 100, 1100, 670);
+        win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        win.getContentPane().setLayout(null);
         
         //generate new test
         dbh.generateTest();
         
-        JTextArea title = new JTextArea();
-        title.setLineWrap(true);
-        title.setWrapStyleWord(true);
-        title.setBackground(new Color(102, 153, 204));
-        title.setForeground(Color.WHITE);
-        title.setFont(new Font("Ubuntu", Font.BOLD, 20));
-        title.setText(dbh.getQuestion());
-        title.setEditable(false);
-        title.setBounds(29, 42, 570, 245);
-        frmRoadRulesTest.getContentPane().add(title);
+        question.setLineWrap(true);
+        question.setWrapStyleWord(true);
+        question.setBackground(new Color(102, 153, 204));
+        question.setForeground(Color.WHITE);
+        question.setFont(new Font("Ubuntu", Font.BOLD, 20));
+        question.setText("--");
+        question.setEditable(false);
+        question.setBounds(29, 42, 570, 245);
+        win.getContentPane().add(question);
         
         JPanel panel = new JPanel();
         panel.setBorder(new LineBorder(new Color(255, 255, 255)));
         panel.setBackground(new Color(102, 153, 204));
         panel.setBounds(29, 299, 1033, 291);
-        frmRoadRulesTest.getContentPane().add(panel);
+        win.getContentPane().add(panel);
         panel.setLayout(null);
-        
         ans1Btn.setEnabled(false);
         ans1Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                if (txtAns1.getForeground() == Color.WHITE) {
-                    txtAns1.setForeground(Color.BLACK);
+                if (txtAns1.getBackground() == backgroundColor) {
+                    txtAns1.setBackground(Color.BLACK);
+                    dbh.setAnswer(true, 0);
                 } else {
-                    txtAns1.setForeground(Color.WHITE);
+                    txtAns1.setBackground(backgroundColor);
+                    dbh.setAnswer(false, 0);
                 }
             }
         });
@@ -107,10 +108,12 @@ public class MainClass {
         ans2Btn.setEnabled(false);
         ans2Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (txtAns2.getForeground() == Color.WHITE) {
-                    txtAns2.setForeground(Color.BLACK);
+                if (txtAns2.getBackground() == backgroundColor) {
+                    txtAns2.setBackground(Color.BLACK);
+                    dbh.setAnswer(true, 1);
                 } else {
-                    txtAns2.setForeground(Color.WHITE);
+                    txtAns2.setBackground(backgroundColor);
+                    dbh.setAnswer(false, 1);
                 }
             }
         });
@@ -120,10 +123,12 @@ public class MainClass {
         ans3Btn.setEnabled(false);
         ans3Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (txtAns3.getForeground() == Color.WHITE) {
-                    txtAns3.setForeground(Color.BLACK);
+                if (txtAns3.getBackground() == backgroundColor) {
+                    txtAns3.setBackground(Color.BLACK);
+                    dbh.setAnswer(true, 2);
                 } else {
-                    txtAns3.setForeground(Color.WHITE);
+                    txtAns3.setBackground(backgroundColor);
+                    dbh.setAnswer(false, 2);
                 }
             }
         });
@@ -133,10 +138,12 @@ public class MainClass {
         ans4Btn.setEnabled(false);
         ans4Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (txtAns4.getForeground() == Color.WHITE) {
-                    txtAns4.setForeground(Color.BLACK);
+                if (txtAns4.getBackground() == backgroundColor) {
+                    txtAns4.setBackground(Color.BLACK);
+                    dbh.setAnswer(true, 3);
                 } else {
-                    txtAns4.setForeground(Color.WHITE);
+                    txtAns4.setBackground(backgroundColor);
+                    dbh.setAnswer(false, 3);
                 }
             }
         });
@@ -146,10 +153,12 @@ public class MainClass {
         ans5Btn.setEnabled(false);
         ans5Btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (txtAns5.getForeground() == Color.WHITE) {
-                    txtAns5.setForeground(Color.BLACK);
+                if (txtAns5.getBackground() == backgroundColor) {
+                    txtAns5.setBackground(Color.BLACK);
+                    dbh.setAnswer(true, 4);
                 } else {
-                    txtAns5.setForeground(Color.WHITE);
+                    txtAns5.setBackground(backgroundColor);
+                    dbh.setAnswer(false, 4);
                 }
             }
         });
@@ -159,7 +168,7 @@ public class MainClass {
         txtAns1.setEditable(false);
         txtAns1.setFont(new Font("Ubuntu", Font.BOLD, 16));
         txtAns1.setLineWrap(true);
-        txtAns1.setBackground(new Color(102, 153, 204));
+        txtAns1.setBackground(backgroundColor);
         txtAns1.setForeground(Color.WHITE);
         txtAns1.setText("-");
         txtAns1.setBounds(75, 12, 946, 44);
@@ -170,7 +179,7 @@ public class MainClass {
         txtAns2.setForeground(Color.WHITE);
         txtAns2.setFont(new Font("Ubuntu", Font.BOLD, 16));
         txtAns2.setEditable(false);
-        txtAns2.setBackground(new Color(102, 153, 204));
+        txtAns2.setBackground(backgroundColor);
         txtAns2.setBounds(74, 68, 946, 44);
         panel.add(txtAns2);
         
@@ -179,7 +188,7 @@ public class MainClass {
         txtAns3.setForeground(Color.WHITE);
         txtAns3.setFont(new Font("Ubuntu", Font.BOLD, 16));
         txtAns3.setEditable(false);
-        txtAns3.setBackground(new Color(102, 153, 204));
+        txtAns3.setBackground(backgroundColor);
         txtAns3.setBounds(75, 124, 946, 44);
         panel.add(txtAns3);
         
@@ -188,7 +197,7 @@ public class MainClass {
         txtAns4.setForeground(Color.WHITE);
         txtAns4.setFont(new Font("Ubuntu", Font.BOLD, 16));
         txtAns4.setEditable(false);
-        txtAns4.setBackground(new Color(102, 153, 204));
+        txtAns4.setBackground(backgroundColor);
         txtAns4.setBounds(75, 180, 946, 44);
         panel.add(txtAns4);
         
@@ -197,7 +206,7 @@ public class MainClass {
         txtAns5.setForeground(Color.WHITE);
         txtAns5.setFont(new Font("Ubuntu", Font.BOLD, 16));
         txtAns5.setEditable(false);
-        txtAns5.setBackground(new Color(102, 153, 204));
+        txtAns5.setBackground(backgroundColor);
         txtAns5.setBounds(75, 236, 946, 44);
         panel.add(txtAns5);
         
@@ -207,15 +216,43 @@ public class MainClass {
             }
         });
         previousBtn.setBounds(39, 602, 117, 25);
-        frmRoadRulesTest.getContentPane().add(previousBtn);
+        win.getContentPane().add(previousBtn);
         
         JButton nextBtn = new JButton("Next");
+        nextBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                if (dbh.getQIndex() != 1) {
+                    markAnsweredButtons(5, true);
+                    dbh.increaseIndex();
+                    fillAnswers();
+                }
+            }
+        });
         nextBtn.setBounds(168, 602, 117, 25);
-        frmRoadRulesTest.getContentPane().add(nextBtn);
+        win.getContentPane().add(nextBtn);
         
         JButton finishTestBtn = new JButton("Finish test");
+        finishTestBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                win.dispose();
+                System.exit(0);
+            }
+        });
         finishTestBtn.setBounds(945, 602, 117, 25);
-        frmRoadRulesTest.getContentPane().add(finishTestBtn);
+        win.getContentPane().add(finishTestBtn);
+        
+        JButton btnCheckAnswer = new JButton("Check Answer");
+        btnCheckAnswer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                displayCheckedAns();
+            }
+        });
+        btnCheckAnswer.setBounds(353, 602, 169, 25);
+        win.getContentPane().add(btnCheckAnswer);
+        
+        verdict.setForeground(Color.WHITE);
+        verdict.setBounds(611, 607, 70, 15);
+        win.getContentPane().add(verdict);
     
         fillAnswers();
     }
@@ -224,7 +261,14 @@ public class MainClass {
      * method for filling answer fields with values
      */
     private void fillAnswers() {
+        question.setText(dbh.getQuestion());
         List<String> ans = dbh.getAnswers();
+        List<Boolean> corr = dbh.getCorrect();
+        Boolean[] userAns = new Boolean[corr.size()];
+        for (int i = 0; i < userAns.length; i++)
+            userAns[i] = false;
+            
+        dbh.setUserAnswers(userAns);
         
         for (int i = 0; i < ans.size(); i++) {
             String s = ans.get(i);
@@ -250,6 +294,74 @@ public class MainClass {
                 ans5Btn.setEnabled(true);
                 break;
             }
+        }
+    }
+    
+    /*
+     * temporary method to check answers and display result
+     */
+    private void displayCheckedAns() {
+        List<Boolean> corr = dbh.getCorrect();
+        Boolean[] userInput = dbh.getUserAnswers();
+        boolean totallyCorrect = true;
+        
+        for (int i = 0; i < corr.size(); i++) {
+            //if answered wrong...
+            if (userInput[i] != corr.get(i))
+                totallyCorrect = false;
+            
+            //display correct and not correct answers for user
+            if (corr.get(i)) {
+                markAnsweredButtons(i, true);
+            } else {
+                markAnsweredButtons(i, false);
+            }
+        }
+        verdict.setText(totallyCorrect ? "CORRECT!" : "WRONG!");
+    }
+    
+    /*
+     * temporary helper method for button coloring
+     */
+    private void markAnsweredButtons(int i, boolean b) {
+        switch (i) {
+        case 0:
+            if (b) ans1Btn.setBackground(Color.GREEN);
+            else if (!b) ans1Btn.setBackground(Color.RED);
+            break;
+        case 1:
+            if (b) ans2Btn.setBackground(Color.GREEN);
+            else if (!b) ans2Btn.setBackground(Color.RED);
+            break;
+        case 2:
+            if (b) ans3Btn.setBackground(Color.GREEN);
+            else if (!b) ans3Btn.setBackground(Color.RED);
+            break;
+        case 3:
+            if (b) ans4Btn.setBackground(Color.GREEN);
+            else if (!b) ans4Btn.setBackground(Color.RED);
+            break;
+        case 4:
+            if (b) ans5Btn.setBackground(Color.GREEN);
+            else if (!b) ans5Btn.setBackground(Color.RED);
+            break;
+        case 5:
+            txtAns1.setBackground(backgroundColor);
+            ans1Btn.setBackground(btnColor);
+            ans1Btn.setEnabled(false);
+            txtAns2.setBackground(backgroundColor);
+            ans2Btn.setBackground(btnColor);
+            ans2Btn.setEnabled(false);
+            txtAns3.setBackground(backgroundColor);
+            ans3Btn.setBackground(btnColor);
+            ans3Btn.setEnabled(false);
+            txtAns4.setBackground(backgroundColor);
+            ans4Btn.setBackground(btnColor);
+            ans4Btn.setEnabled(false);
+            txtAns5.setBackground(backgroundColor);
+            ans5Btn.setBackground(btnColor);
+            ans5Btn.setEnabled(false);
+            break;
         }
     }
 }
