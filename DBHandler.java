@@ -72,6 +72,7 @@ public class DBHandler {
     }
     
     /*
+<<<<<<< HEAD
      * decrease qIndex
      */
     public void decreaseIndex() {
@@ -79,6 +80,8 @@ public class DBHandler {
     }
     
     /*
+=======
+>>>>>>> 105f4a14b0ffbc44fae02732fa519f46ba609b59
      * return qIndex
      */
     public int getQIndex() {
